@@ -1,7 +1,8 @@
 # CSCI3170-SalesSystem
 ## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Step 1: In your terminal, change your working directory to `.\src\SalesSystem`
+Step 2: In CLI, type `javac -cp ../ App.java`
 
 ## Folder Structure
 
