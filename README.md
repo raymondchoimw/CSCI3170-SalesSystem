@@ -1,8 +1,8 @@
 # CSCI3170-SalesSystem
 ## Getting Started
 
-Step 1: In your terminal, change your working directory to `.\src\SalesSystem`
-Step 2: In CLI, type `javac -cp ../ App.java`
+- Step 1: In your terminal, change your working directory to `.\src\SalesSystem`
+- Step 2: In CLI, type `javac -cp ../ App.java`
 
 ## Folder Structure
 
