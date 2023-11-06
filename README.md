@@ -10,10 +10,15 @@ Open your terminal, do the followings:
 
 Use `db4` for the phase 2 project devlopement.
 ### Navigating MySQL Database
-Note: End each line of command with `;`, otherwise it won't be executed.
+Note: End each line of command with `;`, otherwise it won't be executed. The command is case-insensitive.
 #### Show all databases in the MySQL Server
 ```
 SHOW DATABASES;
+```
+#### Show all tables in a particular database
+```
+USE db4;
+SHOW TABLES;
 ```
 ## Folder Structure
 
