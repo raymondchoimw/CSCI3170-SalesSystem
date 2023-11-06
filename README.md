@@ -1,14 +1,20 @@
 # CSCI3170-SalesSystem
 ## Getting Started
-### Connecting to MySQL Database
+### Connecting to MySQL Database Server
 Open your terminal, do the followings:
-1. ```ssh [account]@gw.cse.cuhk.edu.hk```
+1. `ssh [account]@gw.cse.cuhk.edu.hk`
 2. Enter your own password
-3. ```ssh linux[1-10]``` (recommend using 1, 2; avoid using 9)
-4. ```mysql --host=projgw --port=2633 -u Group4 -p```
-5. Enter the password "CSCI3170"
+3. `ssh linux[1-10]` (recommend using 1, 2; avoid using 9)
+4. `mysql --host=projgw --port=2633 -u Group4 -p`
+5. Enter the password `CSCI3170`
 
-Use db4 for the phase 2 project devlopement.
+Use `db4` for the phase 2 project devlopement.
+### Navigating MySQL Database
+Note: End each line of command with `;`, otherwise it won't be executed.
+#### Show all databases in the MySQL Server
+```
+SHOW DATABASES;
+```
 ## Folder Structure
 
 The workspace contains two folders by default, where:
