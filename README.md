@@ -58,7 +58,7 @@ Note: As of 7/11/2023 18:45, test driver-realted issue using `SalesSystem.Databa
 ```
 java -cp '.\mysql-jdbc.jar;..' SalesSystem.App
 ```
-
+sdf
     3.2 For Windows cmd
 ```
 java -cp ".\mysql-jdbc.jar;.." SalesSystem.App
