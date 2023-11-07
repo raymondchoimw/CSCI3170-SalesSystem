@@ -2,13 +2,25 @@
 ## Getting Started
 ### Connecting to MySQL Database Server
 Open your terminal, do the followings:
-1. `ssh [account]@gw.cse.cuhk.edu.hk`
+1. Connect to CSE server
+```
+ssh [account]@gw.cse.cuhk.edu.hk
+```
 2. Enter your own password
-3. `ssh linux[1-10]` (recommend using 1, 2; avoid using 9)
-4. `mysql --host=projgw --port=2633 -u Group4 -p`
-5. Enter the password `CSCI3170`
+3. Connect to linux server (recommend using 1 or 2;anyway, avoid using 9)
+```
+ssh linux[1-10]
+```
+4. Go to MySQL server
+```
+mysql --host=projgw --port=2633 -u Group4 -p
+```
+5. Enter the password
+```
+CSCI3170
+```
 
-Use `db4` for the phase 2 project devlopement.
+Note: Use `db4` for the phase 2 project devlopement.
 ### Navigating MySQL Database
 Note: End each line of command with `;`, otherwise it won't be executed. The command is case-insensitive.
 #### Show all databases in the MySQL Server
@@ -31,11 +43,26 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 
 > If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Compile .java in CLI
+## Compile & Execute .java in CLI
+1. Change working directory
+```
+cd .\src\SalesSystem
+```
+2. Compile related .java files at once
+```
+javac -cp ../ App.java
+```
+3. Execute with jdbc driver
+```
+java -cp ./mysql-jdbc.jar:./ SalesSystem.Database
+```
 
-- Step 1: In your terminal, change your working directory to `.\src\SalesSystem`
-- Step 2: In CLI, type `javac -cp ../ App.java`
-
+Together, it is (for easy copying):
+```
+cd .\src\SalesSystem
+javac -cp ../ App.java
+java -classpath ./mysql-jdbc.jar:./ SalesSystem.App
+```
 ## Dependency Management
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
