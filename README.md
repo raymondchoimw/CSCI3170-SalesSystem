@@ -57,8 +57,8 @@ Note: As of 7/11/2023 18:45, test driver-related issue using `SalesSystem.Databa
 3.1 For Windows PowerShell
 ```
 java -cp '.\mysql-jdbc.jar;..' SalesSystem.App
-```\
-3.2 For Windows cmd
+```
+\3.2 For Windows cmd
 ```
 java -cp ".\mysql-jdbc.jar;.." SalesSystem.App
 ```
