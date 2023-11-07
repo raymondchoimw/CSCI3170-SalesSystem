@@ -53,15 +53,17 @@ cd .\src\SalesSystem
 javac -cp ../ App.java
 ```
 3. Execute with jdbc driver
+*** This command is only tested in Windows Powershell, the syntax for Mac may be different.
+Ref: (https://stackoverflow.com/questions/18093928/what-does-could-not-find-or-load-main-class-mean)
 ```
-java -cp ./mysql-jdbc.jar:./ SalesSystem.Database
+java -cp './mysql-jdbc.jar;..' SalesSystem.App
 ```
 
-Together, it is (for easy copying):
+Together (for easy copying), it is:
 ```
 cd .\src\SalesSystem
 javac -cp ../ App.java
-java -classpath ./mysql-jdbc.jar:./ SalesSystem.App
+java -cp './mysql-jdbc.jar;..' SalesSystem.App
 ```
 ## Dependency Management
 
