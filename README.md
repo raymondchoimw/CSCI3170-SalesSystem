@@ -54,15 +54,17 @@ javac -cp ..\ App.java
 ```
 3. Execute with jdbc driver [Ref](https://stackoverflow.com/questions/18093928/what-does-could-not-find-or-load-main-class-mean)\
 Note: As of 7/11/2023 18:45, test driver-realted issue using `SalesSystem.Database`
-    3.1 For Windows PowerShell\
+    3.1 For Windows PowerShell
 ```
 java -cp '.\mysql-jdbc.jar;..' SalesSystem.App
 ```
-    3.2 For Windows cmd\
+
+    3.2 For Windows cmd
 ```
 java -cp ".\mysql-jdbc.jar;.." SalesSystem.App
 
-``` 
+```
+
     3.3 For other CLI
 > Consult ChatGPT or New Bing
 
