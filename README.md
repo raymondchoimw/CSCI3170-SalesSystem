@@ -50,20 +50,27 @@ cd .\src\SalesSystem
 ```
 2. Compile related .java files at once
 ```
-javac -cp ../ App.java
+javac -cp ..\ App.java
 ```
-3. Execute with jdbc driver\
-*** This command is only tested in Windows Powershell, the syntax for Mac may be different.\
-Ref: (https://stackoverflow.com/questions/18093928/what-does-could-not-find-or-load-main-class-mean)
+3. Execute with jdbc driver [Ref](https://stackoverflow.com/questions/18093928/what-does-could-not-find-or-load-main-class-mean)\
+Note: As of 7/11/2023 18:45, test driver-realted issue using `SalesSystem.Database`
+    3.1 For Windows PowerShell
 ```
-java -cp './mysql-jdbc.jar;..' SalesSystem.App
+java -cp '.\mysql-jdbc.jar;..' SalesSystem.App
 ```
+    3.2 For Windows cmd
+```
+java -cp ".\mysql-jdbc.jar;.." SalesSystem.App
+
+``` 
+    3.3 For other CLI
+> Consult ChatGPT or New Bing
 
 Together (for easy copying), it is:
 ```
 cd .\src\SalesSystem
-javac -cp ../ App.java
-java -cp './mysql-jdbc.jar;..' SalesSystem.App
+javac -cp ..\ App.java
+java -cp '.\mysql-jdbc.jar;..' SalesSystem.App
 ```
 ## Dependency Management
 
