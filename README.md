@@ -62,7 +62,6 @@ java -cp '.\mysql-jdbc.jar;..' SalesSystem.App
     3.2 For Windows cmd
 ```
 java -cp ".\mysql-jdbc.jar;.." SalesSystem.App
-
 ```
 
     3.3 For other CLI
