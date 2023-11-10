@@ -1,6 +1,14 @@
 # CSCI3170-SalesSystem
+## Download MySQL Server on you local PC
+This process is essential as the Java folder is not yet placed in CSE VM, which is the cost for collaboration.
+1. Download MySQL Community Server (Must) and MySQL Workbench (highly recommended) from [here](https://dev.mysql.com/downloads/)
+2. Follow to steps to configure MySQL Community Server. Follow all default setting is enough.
+3. Open MySQL Command Line Client (it is automatically installed when you configure MySQL Community Server) or MySQL Workbench.
+4. See "Navigate MySQL Database" section below for some useful command to use. If you are using MySQL Workbench, simply input the same command as your query and execute them.
+5. Make sure your MySQL server is running whenever your test involve connection to database.
 ## Getting Started
-### Connecting to MySQL Database Server
+### Connecting to MySQL Database Server (from CSE server)
+This part is only essential after we debug the application and move everything to the Linux VM.
 Open your terminal, do the followings:
 1. Connect to CSE server
 ```
