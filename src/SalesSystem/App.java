@@ -3,11 +3,16 @@ package SalesSystem;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import java.sql.*;
+
+
 public class App {
     final static int menuItem = 4;
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to sales system!");
         System.out.println();
+
+        Connection connection = Database.connection();
 
         // Initialize scanner to read user input
         Scanner inputScanner = new Scanner(System.in);
