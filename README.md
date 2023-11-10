@@ -2,10 +2,14 @@
 ## Download MySQL Server on you local PC
 This process is essential as the Java folder is not yet placed in CSE VM, which is the cost for collaboration.
 1. Download MySQL Community Server (Must) and MySQL Workbench (highly recommended) from [here](https://dev.mysql.com/downloads/)
-2. Follow to steps to configure MySQL Community Server. Follow all default setting is enough.
-3. Open MySQL Command Line Client (it is automatically installed when you configure MySQL Community Server) or MySQL Workbench.
+2. Follow to steps to configure MySQL Community Server. Follow all default setting is enough. Set Password as `CSCI3170` to reduce change of code.
+3. Open MySQL Command Line Client (it is automatically installed when you configure MySQL Community Server) or MySQL Workbench. Create new database named `db4` with the below command:
+```
+create table db4
+```
 4. See "Navigate MySQL Database" section below for some useful command to use. If you are using MySQL Workbench, simply input the same command as your query and execute them.
 5. Make sure your MySQL server is running whenever your test involve connection to database.
+6. In case of connection failure from Java App, check if the your hostname='localhost' and port='3306', that is, the default setting. 
 ## Getting Started
 ### Connecting to MySQL Database Server (from CSE server)
 This part is only essential after we debug the application and move everything to the Linux VM.
