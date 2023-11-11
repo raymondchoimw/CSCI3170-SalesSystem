@@ -31,7 +31,7 @@ public class App {
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
-                
+
                 // Routing
                 switch (choice) {
                     case 1:
@@ -55,7 +55,6 @@ public class App {
 
             } catch (InputMismatchException e) {
                 System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
-                keyboard.nextLine(); // Clear the input buffer
             }
         } while (choice != menuItem);
         keyboard.close();
