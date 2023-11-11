@@ -5,7 +5,7 @@ This process is essential as the Java folder is not yet placed in CSE VM, which 
 2. Follow to steps to configure MySQL Community Server. Follow all default setting is enough. Set Password as `CSCI3170` to reduce change of code.
 3. Open MySQL Command Line Client (it is automatically installed when you configure MySQL Community Server) or MySQL Workbench. Create new database named `db4` with the below command:
 ```
-create table db4
+create database db4
 ```
 4. See "Navigate MySQL Database" section below for some useful command to use. If you are using MySQL Workbench, simply input the same command as your query and execute them.
 5. Make sure your MySQL server is running whenever your test involve connection to database.
