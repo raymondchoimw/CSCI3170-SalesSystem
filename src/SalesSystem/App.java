@@ -30,7 +30,8 @@ public class App {
 
                 // Get user's choice
                 choice = keyboard.nextInt();
-
+                keyboard.nextLine(); // Clear the input buffer
+                
                 // Routing
                 switch (choice) {
                     case 1:
