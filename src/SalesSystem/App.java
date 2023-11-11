@@ -15,7 +15,7 @@ public class App {
         Connection connection = Database.connection();
 
         // Initialize scanner to read user input
-        Scanner inputScanner = new Scanner(System.in);
+        Scanner keyboard = new Scanner(System.in);
         int choice = 0;
 
         do {
@@ -29,21 +29,21 @@ public class App {
                 System.out.print("Enter Your Choice: ");
 
                 // Get user's choice
-                choice = inputScanner.nextInt();
+                choice = keyboard.nextInt();
 
                 // Routing
                 switch (choice) {
                     case 1:
                         System.out.println();
-                        Admin.menu(inputScanner); // Pass the Scanner to subroutine
+                        Admin.init(connection, keyboard); // Pass the Scanner to subroutine
                         break;
                     case 2:
                         System.out.println();
-                        Sales.menu(inputScanner); // Pass the Scanner to subroutine
+                        Sales.menu(keyboard); // Pass the Scanner to subroutine
                         break;
                     case 3:
                         System.out.println();
-                        Manager.menu(inputScanner); // Pass the Scanner to subroutine
+                        Manager.menu(keyboard); // Pass the Scanner to subroutine
                         break;
                     case 4:
                         break;
@@ -54,9 +54,9 @@ public class App {
 
             } catch (InputMismatchException e) {
                 System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
-                inputScanner.nextLine(); // Clear the input buffer
+                keyboard.nextLine(); // Clear the input buffer
             }
         } while (choice != menuItem);
-        inputScanner.close();
+        keyboard.close();
     }
 }
