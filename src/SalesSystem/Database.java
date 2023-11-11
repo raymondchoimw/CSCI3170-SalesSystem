@@ -8,6 +8,26 @@ public class Database {
     private static final String dbUsername = "root"; //"Group4";
     private static final String dbPassword = "CSCI3170";
     
+    // WIP
+    public static void printResultSet(ResultSet resultSet) throws SQLException {
+        int columnCount = resultSet.getMetaData().getColumnCount();
+
+        // Print column names
+        for (int i = 1; i <= columnCount; i++) {
+            System.out.print(resultSet.getMetaData().getColumnName(i) + "\t");
+        }
+        System.out.println();
+
+        // Print rows
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.print(resultSet.getString(i) + "\t");
+            }
+            System.out.println();
+        }
+    }
+    
+    
     // Check if table exists in a database
     public static boolean existTable(Connection connection, String tableName){
         
