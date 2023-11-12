@@ -242,16 +242,9 @@ public class Admin {
         System.err.print("Which table would you like to show: ");
         String tableName = keyboard.nextLine();
         
-        tableName = "part";
-
-        if (!Database.existTable(connection, tableName)) {
-            System.err.println("Table [" + tableName + "] does not exist.");
-            System.out.println("Going back to administrator menu...");
-        } else {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + tableName);
-            ResultSet resultSet = statement.executeQuery();
-            Database.printResultSet(resultSet);
-        }
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + tableName);
+        ResultSet resultSet = statement.executeQuery();
+        Database.printResultSet(resultSet);
 
     }
 }
