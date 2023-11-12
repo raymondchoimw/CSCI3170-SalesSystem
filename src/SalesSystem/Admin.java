@@ -193,7 +193,7 @@ public class Admin {
                 // Start reading contents from files
                 for (File file:files) {
                     String fileName = file.getName().split("\\.")[0];
-                    System.err.println("Insert into " + fileName);
+                    //System.out.println("Insert into " + fileName);
                     Scanner fileScanner = new Scanner(file);
 
                     Function<String[], String> formatValues = null;
@@ -228,6 +228,7 @@ public class Admin {
                         statement.executeUpdate();
                         
                     }
+                    System.out.println("Processing...Done! Data is inputted into the database!");
                     fileScanner.close();
                 }
             }
