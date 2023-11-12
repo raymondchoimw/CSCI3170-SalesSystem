@@ -8,7 +8,7 @@ public class Database {
     private static final String dbUsername = "root"; //"Group4";
     private static final String dbPassword = "CSCI3170";
     
-    // WIP
+    // WIP: print result set in specific format
     public static void printResultSet(ResultSet resultSet) throws SQLException {
         int columnCount = resultSet.getMetaData().getColumnCount();
 
