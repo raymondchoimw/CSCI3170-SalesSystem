@@ -110,7 +110,7 @@ public class Admin {
         + "pName VARCHAR(20) NOT NULL CHECK(LENGTH(pName) > 0),"
         + "pPrice INT(5) NOT NULL CHECK (pPrice > 0),"
         + "mID INT(2) NOT NULL CHECK (mID > 0),"
-        + "CID INT(1) NOT NULL CHECK (LENGTH(cID) = 1 AND cID > 0),"
+        + "cID INT(1) NOT NULL CHECK (LENGTH(cID) = 1 AND cID > 0),"
         + "pWarrantyPeriod INT(2) NOT NULL CHECK(LENGTH(pWarrantyPeriod) > 0),"
         + "pAvailableQuantity INT(2) NOT NULL CHECK(pAvailableQuantity >= 0),"
         + "PRIMARY KEY (pID),"
