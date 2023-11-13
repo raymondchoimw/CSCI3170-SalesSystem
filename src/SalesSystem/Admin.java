@@ -201,7 +201,7 @@ public class Admin {
 
                     if (fileName.equals("transaction")) {
                         formatValues = (data) -> {
-                            // Example String: '1','1','1',
+                            // Example String: '1','1','1'
                             // which is tID, pID, sID respectively
                             String exceptLastParam = "'" + String.join("','", Arrays.copyOfRange(data, 0, data.length - 1)) + "'";
                             
