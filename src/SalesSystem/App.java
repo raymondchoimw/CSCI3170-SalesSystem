@@ -40,7 +40,7 @@ public class App {
                         break;
                     case 2:
                         System.out.println();
-                        Sales.menu(keyboard); // Pass the Scanner to subroutine
+                        Sales.init(connection, keyboard); // Pass the Scanner to subroutine
                         break;
                     case 3:
                         System.out.println();
@@ -54,7 +54,7 @@ public class App {
                 }
 
             } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
+                System.out.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             }
         } while (choice != menuItem);
         keyboard.close();
