@@ -132,7 +132,7 @@ public class Admin {
 
         query = 
         "CREATE TABLE IF NOT EXISTS transaction ("
-        + "tID INT(4) NOT NULL CHECK (tID > 0),"
+        + "tID INT(4) NOT NULL AUTO_INCREMENT,"
         + "pID INT(3) NOT NULL CHECK (pID > 0),"
         + "sID INT(2) NOT NULL CHECK (sID > 0),"
         + "tDate DATE NOT NULL CHECK (LENGTH(tDate) > 0),"
