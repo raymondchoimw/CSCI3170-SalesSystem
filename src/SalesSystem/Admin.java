@@ -228,10 +228,10 @@ public class Admin {
                         statement.executeUpdate();
                         
                     }
-                    System.out.println("Processing...Done! Data is inputted into the database!");
                     fileScanner.close();
                 }
             }
+            System.out.println("Processing...Done! Data is inputted into the database!");
         } catch (NullPointerException | FileNotFoundException e) {
             System.err.printf("[Error]: No .txt file found in the given path: [%s]. Please check your input.\n", f.getPath());
             System.err.println("Going back to administrator menu...");
