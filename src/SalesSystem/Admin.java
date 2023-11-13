@@ -73,8 +73,9 @@ public class Admin {
                         throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                keyboard.nextLine(); // Clear the input buffer
                 System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
+                keyboard.reset(); // Clear the input buffer
+
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }

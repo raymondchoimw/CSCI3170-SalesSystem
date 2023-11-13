@@ -44,7 +44,7 @@ public class App {
                         break;
                     case 3:
                         System.out.println();
-                        Manager.menu(keyboard); // Pass the Scanner to subroutine
+                        Manager.init(connection, keyboard); // Pass the Scanner to subroutine
                         break;
                     case 4:
                         break;
@@ -55,6 +55,7 @@ public class App {
 
             } catch (InputMismatchException e) {
                 System.out.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                keyboard.reset(); // Clear the input buffer
             }
         } while (choice != menuItem);
         keyboard.close();

@@ -1,11 +1,31 @@
 package SalesSystem;
 
+import java.sql.Connection;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Manager {
-    final static int menuItem = 5;
-    public static void menu(Scanner inputScanner) {
+    private final static int menuItem = 5;
+    private static Connection connection = null;
+    private static Scanner keyboard = null;
+    
+    private static void setConnection(Connection newConnection) {
+        connection = newConnection;
+    }
+    private static void setKeyboard(Scanner newKeyboard) {
+        keyboard = newKeyboard;
+    }
+
+    public static void init(Connection newConnection, Scanner newKeyboard) {
+        if (connection == null) {
+            setConnection(newConnection);
+        }
+        if (keyboard == null) {
+            setKeyboard(newKeyboard);
+        }
+        menu();
+    }
+    private static void menu() {
         // Initialize scanner to read user input
         int choice = 0;
 
@@ -22,7 +42,7 @@ public class Manager {
                 System.out.print("Enter Your Choice: ");
 
                 // Get user's choice
-                choice = inputScanner.nextInt();
+                choice = keyboard.nextInt();
                 
                 // Routing
                 switch (choice) {
@@ -35,10 +55,10 @@ public class Manager {
                         throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
-                inputScanner.nextLine(); // Clear the input buffer
+                System.out.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                keyboard.nextLine(); // Clear the input buffer
             }
         } while (choice != menuItem);
-        inputScanner.reset();
+        keyboard.reset();
     }
 }

@@ -66,7 +66,7 @@ public class Sales {
                         throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                keyboard.nextLine(); // Clear the input buffer
+                keyboard.reset(); // Clear the input buffer
                 System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d.\n", menuItem);
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
