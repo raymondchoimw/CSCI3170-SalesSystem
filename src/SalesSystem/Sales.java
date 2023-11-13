@@ -66,8 +66,8 @@ public class Sales {
                         throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                keyboard.reset(); // Clear the input buffer
                 System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d.\n", menuItem);
+                keyboard.nextLine(); // Clear the input buffer
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -136,8 +136,8 @@ public class Sales {
                 resultSet.close();
                 statement.close();
             } catch (InputMismatchException e) {
-                keyboard.nextLine(); // Clear the input buffer
                 System.err.println(e.getMessage());
+                keyboard.nextLine(); // Clear the input buffer
             }
         }
     }
@@ -235,8 +235,8 @@ public class Sales {
                 resultSet.close();
                 statement.close();
             } catch (InputMismatchException e) {
-                keyboard.nextLine(); // Clear the input buffer
                 System.err.println("Please input a integer ID. Let's start from *Part* ID again.");
+                keyboard.nextLine(); // Clear the input buffer
             } 
         }
     }
