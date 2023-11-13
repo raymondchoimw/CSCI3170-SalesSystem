@@ -79,7 +79,7 @@ public class Sales {
         boolean continueLoop = true;
         while (continueLoop) {
             try {
-                int choice;
+                int choice = 0;
 
                 String tableName, fieldName, keyword, orderDirection;
 
@@ -88,10 +88,12 @@ public class Sales {
                 System.out.println("2. Manufacturer Name");
 
                 System.out.print("Enter your choice: ");
+
+
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
-                if (choice < 1 || choice > 2) throw new InputMismatchException("[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
+                if (choice < 1 || choice > 2) throw new InputMismatchException();
                 tableName = (choice == 1)? "part": "manufacturer";
                 fieldName = tableName.charAt(0) + "Name";
                 
@@ -110,7 +112,7 @@ public class Sales {
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
-                if (choice < 1 || choice > 2) throw new InputMismatchException("[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
+                if (choice < 1 || choice > 2) throw new InputMismatchException();
                 orderDirection = (choice == 1)? "ASC" : "DESC";
                 
                 //System.out.println("ORDER BY " + orderDirection);
@@ -136,7 +138,7 @@ public class Sales {
                 resultSet.close();
                 statement.close();
             } catch (InputMismatchException e) {
-                System.err.println(e.getMessage());
+                System.err.println( "[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
                 keyboard.nextLine(); // Clear the input buffer
             }
         }
