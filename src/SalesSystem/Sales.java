@@ -198,13 +198,20 @@ public class Sales {
                 
                 System.out.println("updated part");
 
+                statement = connection.prepareStatement("SELECT MAX(tID) FROM transaction");
+                resultSet = statement.executeQuery();
+                
+                int tId = (resultSet.next()) ? resultSet.getInt(1) : 0;
+
+
                 query =
-                "INSERT INTO transaction (pID, sID, tDate)\n"
+                "INSERT INTO transaction\n"
                 + "values\n"
-                + "(?,?,CURDATE())";
+                + "(?,?,?,CURDATE())";
                 statement = connection.prepareStatement(query);
-                statement.setInt(1, partId);
-                statement.setInt(2, salesId);
+                statement.setInt(1, ++tId);
+                statement.setInt(2, partId);
+                statement.setInt(3, salesId);
                 statement.executeUpdate();
 
                 System.out.println("Inserted into transactions");
