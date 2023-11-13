@@ -73,10 +73,10 @@ public class Admin {
                         throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         } while (choice != menuItem);
         keyboard.reset();
