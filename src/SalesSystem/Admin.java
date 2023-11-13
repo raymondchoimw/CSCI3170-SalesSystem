@@ -241,7 +241,7 @@ public class Admin {
     }
 
     private static void showTableContent() throws SQLException {
-        System.err.print("Which table would you like to show: ");
+        System.out.print("Which table would you like to show: ");
         String tableName = keyboard.nextLine();
         
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + tableName);
