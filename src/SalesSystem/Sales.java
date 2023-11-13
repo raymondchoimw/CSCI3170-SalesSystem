@@ -54,6 +54,7 @@ public class Sales {
                         searchForParts();
                         break; // Placeholder
                     case 2:
+                        performTransaction();
                         break; // Placeholder
 
                     case menuItem:
@@ -65,9 +66,10 @@ public class Sales {
                         throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
+                keyboard.nextLine(); // Clear the input buffer
                 System.out.printf("[Invalid Input]: Please enter a valid integer between 1 and %d.\n", menuItem);
             } catch (SQLException e) {
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
         } while (choice != menuItem);
         keyboard.reset();
@@ -115,11 +117,11 @@ public class Sales {
 
 
                 String query = 
-                "SELECT pID as ID, pName as Name, mName as Manufacturer, cName as Category, pAvailableQuantity as Quantity, pWarrantyPeriod as Warranty, pPrice as Price "
-                + "FROM part "
-                + "INNER JOIN (SELECT mID, mName FROM manufacturer) m ON part.mID = m.mID "
-                + "INNER JOIN category ON part.cID=category.cID "
-                + String.format("WHERE %s LIKE ? ", fieldName)
+                "SELECT pID as ID, pName as Name, mName as Manufacturer, cName as Category, pAvailableQuantity as Quantity, pWarrantyPeriod as Warranty, pPrice as Price\n"
+                + "FROM part\n"
+                + "INNER JOIN (SELECT mID, mName FROM manufacturer) m ON part.mID = m.mID\n"
+                + "INNER JOIN category ON part.cID=category.cID\n"
+                + String.format("WHERE %s LIKE ? \n", fieldName)
                 + "ORDER BY Price " + orderDirection;
                 //System.out.println(query);
 
@@ -127,11 +129,108 @@ public class Sales {
                 statement.setString(1, "%" + keyword + "%");
                 ResultSet resultSet = statement.executeQuery();
                 Database.printResultSet(resultSet);
+                System.out.println("End of Query");
 
                 continueLoop = false;
+                // Clean up resources
+                resultSet.close();
+                statement.close();
             } catch (InputMismatchException e) {
+                keyboard.nextLine(); // Clear the input buffer
                 System.err.println(e.getMessage());
             }
+        }
+    }
+
+    private static void performTransaction() throws SQLException {
+        boolean continueLoop = true;
+        // Loop logic not settled
+        while (continueLoop) {
+            try {
+                PreparedStatement statement;
+                ResultSet resultSet;
+
+                int availQty = 0, partId = 0, salesId = 0;
+
+                while (availQty == 0) {
+                    System.out.print("Enter the Part ID: ");
+                    partId = keyboard.nextInt();
+                    keyboard.nextLine();
+
+                    // Check pAvailableQuantity > 0 ?
+                    statement = connection.prepareStatement("SELECT pName, pAvailableQuantity FROM part WHERE pID = ?");
+                    statement.setInt(1, partId);
+                    resultSet = statement.executeQuery();
+                    availQty = (resultSet.next()) ? resultSet.getInt(2) : 0;
+                    if (availQty == 0) {
+                        System.out.printf("Part with ID: [ %d ] is currently unavailable or not found in database.\n", partId); 
+                        System.out.println("Please check if you inputted a correct Part ID.");
+                        System.out.println();
+                    }
+                };
+
+                boolean needReinput = true;
+                while (needReinput) {
+                    System.out.print("Enter the Salesperson ID: ");
+                    salesId = keyboard.nextInt();
+                    keyboard.nextLine();
+
+                    // Check SID correctness
+                    statement = connection.prepareStatement("SELECT sID FROM salesperson WHERE sID = ?");
+                    statement.setInt(1, salesId);
+                    resultSet = statement.executeQuery();
+                    if (!resultSet.next()) {
+                        System.out.printf("Salesperson with ID: [ %d ] is not found in database.\n", salesId); 
+                        System.out.println("Please check if you inputted a correct Salesperson ID.");
+                        System.out.println();
+                    } else {
+                        needReinput = false;
+                    }
+                }
+                String query = 
+                "UPDATE part\n"
+                + "SET pAvailableQuantity = ?\n"
+                + "WHERE pID = ?";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, --availQty);
+                statement.setInt(2, partId);
+                statement.executeUpdate();
+                
+                System.out.println("updated part");
+
+                query =
+                "INSERT INTO transaction (pID, sID, tDate)\n"
+                + "values\n"
+                + "(?,?,CURDATE())";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, partId);
+                statement.setInt(2, salesId);
+                statement.executeUpdate();
+
+                System.out.println("Inserted into transactions");
+
+                query = 
+                "SELECT pName, pAvailableQuantity FROM part\n"
+                + "WHERE pID = ?";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, partId);
+                resultSet = statement.executeQuery();
+                String partName = null;
+                int checkAvailQty = 0;
+                if (resultSet.next()) {
+                    partName = resultSet.getString(1);
+                    checkAvailQty = resultSet.getInt(2);
+                }
+
+                System.out.printf("Product: %s (id: %d) Remaining Quantity: %d\n", partName, partId, checkAvailQty);
+                continueLoop = false;
+                // Clean up resources
+                //resultSet.close();
+                //statement.close();
+            } catch (InputMismatchException e) {
+                keyboard.nextLine(); // Clear the input buffer
+                System.err.println(e.getMessage());
+            } 
         }
     }
 }
