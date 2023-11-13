@@ -14,7 +14,8 @@ public class Database {
 
         // Print column names
         for (int i = 1; i <= columnCount; i++) {
-            System.out.print(resultSet.getMetaData().getColumnName(i) + "\t");
+            // ColumnLabel instead of ColumnName as latter does not work with alias
+            System.out.print(resultSet.getMetaData().getColumnLabel(i) + "\t");
         }
         System.out.println();
 
