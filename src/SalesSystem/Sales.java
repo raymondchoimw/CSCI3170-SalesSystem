@@ -89,9 +89,7 @@ public class Sales {
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
-
                 if (choice < 1 || choice > 2) throw new InputMismatchException("[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
-
                 tableName = (choice == 1)? "part": "manufacturer";
                 fieldName = tableName.charAt(0) + "Name";
                 
@@ -105,8 +103,8 @@ public class Sales {
                 System.out.println("Choose ordering:");
                 System.out.println("1. By price, ascending order");
                 System.out.println("2. By price, descending order");
-
                 System.out.print("Enter your choice: ");
+
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
@@ -115,8 +113,16 @@ public class Sales {
                 
                 //System.out.println("ORDER BY " + orderDirection);
 
-                // [Warning] Wrong query
-                String query = String.format("SELECT * FROM %s WHERE %s LIKE ? ORDER BY pPrice %s", tableName, fieldName, orderDirection); 
+
+                String query = 
+                "SELECT pID as ID, pName as Name, mName as Manufacturer, cName as Category, pAvailableQuantity as Quantity, pWarrantyPeriod as Warranty, pPrice as Price "
+                + "FROM part "
+                + "INNER JOIN (SELECT mID, mName FROM manufacturer) m ON part.mID = m.mID "
+                + "INNER JOIN category ON part.cID=category.cID "
+                + String.format("WHERE %s LIKE ? ", fieldName)
+                + "ORDER BY Price " + orderDirection;
+                //System.out.println(query);
+
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, "%" + keyword + "%");
                 ResultSet resultSet = statement.executeQuery();
