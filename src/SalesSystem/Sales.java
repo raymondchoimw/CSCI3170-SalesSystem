@@ -1,11 +1,35 @@
 package SalesSystem;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Sales {
-    final static int menuItem = 3;
-    public static void menu(Scanner inputScanner) {
+    private final static int menuItem = 3;
+    private static Connection connection = null;
+    private static Scanner keyboard = null;
+    
+    private static void setConnection(Connection newConnection) {
+        connection = newConnection;
+    }
+    private static void setKeyboard(Scanner newKeyboard) {
+        keyboard = newKeyboard;
+    }
+
+    public static void init(Connection newConnection, Scanner newKeyboard) {
+        if (connection == null) {
+            setConnection(newConnection);
+        }
+        if (keyboard == null) {
+            setKeyboard(newKeyboard);
+        }
+        menu();
+    }
+
+    public static void menu() {
         // Initialize scanner to read user input
         int choice = 0;
 
@@ -20,11 +44,14 @@ public class Sales {
                 System.out.print("Enter Your Choice: ");
 
                 // Get user's choice
-                choice = inputScanner.nextInt();
+                choice = keyboard.nextInt();
+                keyboard.nextLine(); // Clear the input buffer
+
                 
                 // Routing
                 switch (choice) {
                     case 1:
+                        searchForParts();
                         break; // Placeholder
                     case 2:
                         break; // Placeholder
@@ -38,10 +65,67 @@ public class Sales {
                         throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
-                inputScanner.nextLine(); // Clear the input buffer
+                System.out.printf("[Invalid Input]: Please enter a valid integer between 1 and %d.\n", menuItem);
+            } catch (SQLException e) {
+                System.out.println(e);
             }
         } while (choice != menuItem);
-        inputScanner.reset();
+        keyboard.reset();
+    }
+
+    private static void searchForParts() throws SQLException {
+        boolean continueLoop = true;
+        while (continueLoop) {
+            try {
+                int choice;
+
+                String tableName, fieldName, keyword, orderDirection;
+
+                System.out.println("Choose the search criterion:");
+                System.out.println("1. Part Name");
+                System.out.println("2. Manufacturer Name");
+
+                System.out.print("Enter your choice: ");
+                // Get user's choice
+                choice = keyboard.nextInt();
+                keyboard.nextLine(); // Clear the input buffer
+
+                if (choice < 1 || choice > 2) throw new InputMismatchException("[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
+
+                tableName = (choice == 1)? "part": "manufacturer";
+                fieldName = tableName.charAt(0) + "Name";
+                
+                //System.out.printf("FROM %s WHERE %s\n", tableName, fieldName);
+
+                System.out.print("Type in the Search Keyword: ");
+                keyword = keyboard.nextLine();
+
+                //System.out.println("keyword: " + keyword);
+
+                System.out.println("Choose ordering:");
+                System.out.println("1. By price, ascending order");
+                System.out.println("2. By price, descending order");
+
+                System.out.print("Enter your choice: ");
+                // Get user's choice
+                choice = keyboard.nextInt();
+                keyboard.nextLine(); // Clear the input buffer
+                if (choice < 1 || choice > 2) throw new InputMismatchException("[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
+                orderDirection = (choice == 1)? "ASC" : "DESC";
+                
+                //System.out.println("ORDER BY " + orderDirection);
+
+                // [Warning] Wrong query
+                String query = String.format("SELECT * FROM %s WHERE %s LIKE ? ORDER BY pPrice %s", tableName, fieldName, orderDirection); 
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, "%" + keyword + "%");
+                ResultSet resultSet = statement.executeQuery();
+                Database.printResultSet(resultSet);
+
+                continueLoop = false;
+            } catch (InputMismatchException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 }
