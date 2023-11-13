@@ -67,9 +67,9 @@ public class Sales {
                 }
             } catch (InputMismatchException e) {
                 keyboard.nextLine(); // Clear the input buffer
-                System.out.printf("[Invalid Input]: Please enter a valid integer between 1 and %d.\n", menuItem);
+                System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d.\n", menuItem);
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         } while (choice != menuItem);
         keyboard.reset();
@@ -144,7 +144,7 @@ public class Sales {
 
     private static void performTransaction() throws SQLException {
         boolean continueLoop = true;
-        // Loop logic not settled
+
         while (continueLoop) {
             try {
                 PreparedStatement statement;
@@ -157,7 +157,7 @@ public class Sales {
                     partId = keyboard.nextInt();
                     keyboard.nextLine();
 
-                    // Check pAvailableQuantity > 0 ?
+                    // Check if pAvailableQuantity > 0
                     statement = connection.prepareStatement("SELECT pName, pAvailableQuantity FROM part WHERE pID = ?");
                     statement.setInt(1, partId);
                     resultSet = statement.executeQuery();
@@ -196,7 +196,7 @@ public class Sales {
                 statement.setInt(2, partId);
                 statement.executeUpdate();
                 
-                System.out.println("updated part");
+                //System.out.println("updated part");
 
                 statement = connection.prepareStatement("SELECT MAX(tID) FROM transaction");
                 resultSet = statement.executeQuery();
@@ -214,7 +214,7 @@ public class Sales {
                 statement.setInt(3, salesId);
                 statement.executeUpdate();
 
-                System.out.println("Inserted into transactions");
+                //System.out.println("Inserted into transactions");
 
                 query = 
                 "SELECT pName, pAvailableQuantity FROM part\n"
@@ -232,11 +232,11 @@ public class Sales {
                 System.out.printf("Product: %s (id: %d) Remaining Quantity: %d\n", partName, partId, checkAvailQty);
                 continueLoop = false;
                 // Clean up resources
-                //resultSet.close();
-                //statement.close();
+                resultSet.close();
+                statement.close();
             } catch (InputMismatchException e) {
                 keyboard.nextLine(); // Clear the input buffer
-                System.err.println(e.getMessage());
+                System.err.println("Please input a integer ID. Let's start from *Part* ID again.");
             } 
         }
     }
