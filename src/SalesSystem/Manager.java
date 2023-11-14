@@ -56,6 +56,7 @@ public class Manager {
                         countTransactionsByExpRange();
                         break;
                     case 3:
+                        manufacturerTotalSalesValue();
                         break;
                     case 4:
                         break;
@@ -158,5 +159,19 @@ public class Manager {
                 keyboard.nextLine(); // Clear the input buffer
             } 
         }
+    }
+    private static void manufacturerTotalSalesValue() throws SQLException {
+        String query =
+        "SELECT part.mID as 'Manufacturer ID', mm.mName as 'Manufacturer Name' , sum(tt.count * pPrice) as 'Total Sales Value'\n"
+        +"FROM part\n"
+        +"INNER JOIN (SELECT pID, count(pID) as count FROM transaction GROUP BY pID) tt ON part.pID = tt.pID\n"
+        +"INNER JOIN (SELECT mID, mName FROM manufacturer) mm on part.mID = mm.mID\n"
+        +"GROUP BY part.mID\n"
+        +"ORDER BY sum(tt.count * pPrice) DESC";
+
+        //System.out.println(query);
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        Database.printResultSet(resultSet);
     }
 }
