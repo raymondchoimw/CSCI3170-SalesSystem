@@ -7,6 +7,10 @@ import java.sql.*;
 
 
 public class App {
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
     final static int menuItem = 4;
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to sales system!");

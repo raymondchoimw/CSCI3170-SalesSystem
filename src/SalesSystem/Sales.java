@@ -58,8 +58,7 @@ public class Sales {
                         break; // Placeholder
 
                     case menuItem:
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
+                        App.clearScreen();
                         break;
 
                     default:

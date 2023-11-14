@@ -63,8 +63,7 @@ public class Manager {
                         nMostPopularPart();
                         break;
                     case menuItem:
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
+                        App.clearScreen();
                         break;
 
                     default:
