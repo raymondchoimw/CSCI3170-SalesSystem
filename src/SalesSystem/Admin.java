@@ -70,13 +70,16 @@ public class Admin {
                         break;
 
                     default:
-                        throw new InputMismatchException();
+                        throw new IllegalArgumentException();
                 }
             } catch (InputMismatchException e) {
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
-                System.out.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+            }
+            catch (SQLException e) {
+                System.err.println(e.getMessage());
             }
         } while (choice != menuItem);
         keyboard.reset();
@@ -110,7 +113,7 @@ public class Admin {
         + "pName VARCHAR(20) NOT NULL CHECK(LENGTH(pName) > 0),"
         + "pPrice INT(5) NOT NULL CHECK (pPrice > 0),"
         + "mID INT(2) NOT NULL CHECK (mID > 0),"
-        + "CID INT(1) NOT NULL CHECK (LENGTH(cID) = 1 AND cID > 0),"
+        + "cID INT(1) NOT NULL CHECK (LENGTH(cID) = 1 AND cID > 0),"
         + "pWarrantyPeriod INT(2) NOT NULL CHECK(LENGTH(pWarrantyPeriod) > 0),"
         + "pAvailableQuantity INT(2) NOT NULL CHECK(pAvailableQuantity >= 0),"
         + "PRIMARY KEY (pID),"
@@ -241,7 +244,7 @@ public class Admin {
     }
 
     private static void showTableContent() throws SQLException {
-        System.err.print("Which table would you like to show: ");
+        System.out.print("Which table would you like to show: ");
         String tableName = keyboard.nextLine();
         
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + tableName);
