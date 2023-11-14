@@ -46,6 +46,7 @@ public class Manager {
 
                 // Get user's choice
                 choice = keyboard.nextInt();
+                keyboard.nextLine(); // Clear the input buffer
                 
                 // Routing
                 switch (choice) {
@@ -59,6 +60,7 @@ public class Manager {
                         manufacturerTotalSalesValue();
                         break;
                     case 4:
+                        nMostPopularPart();
                         break;
                     case menuItem:
                         System.out.print("\033[H\033[2J");
@@ -66,11 +68,13 @@ public class Manager {
                         break;
 
                     default:
-                        throw new InputMismatchException();
+                        throw new IllegalArgumentException();
                 }
             } catch (InputMismatchException e) {
                 System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
+            } catch (IllegalArgumentException e) {
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -93,8 +97,8 @@ public class Manager {
 
             // Get user's choice
             choice = keyboard.nextInt();
+            if (choice < 1 || choice > 2) throw new IllegalArgumentException();
             keyboard.nextLine(); // Clear the input buffer
-            if (choice < 1 || choice > 2) throw new InputMismatchException();
             orderDirection = (choice == 1)? "ASC" : "DESC";
             String query =
             "SELECT sID as ID, sName as Name, sPhoneNumber as 'Phone Number', sExperience as 'Years of Experience'\n"
@@ -113,6 +117,8 @@ public class Manager {
             } catch (InputMismatchException e) {
                 System.err.println("[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
                 keyboard.nextLine(); // Clear the input buffer
+            } catch (IllegalArgumentException e) {
+                System.err.println("[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
             }
         }
     }
@@ -153,6 +159,9 @@ public class Manager {
                 
 
                 continueLoop = false;
+                // Clean up resources
+                resultSet.close();
+                statement.close();
             } catch (InputMismatchException e) {
                 System.err.println("[Invalid input]: Please enter a valid integer.");
                 System.err.println("Let's start again from *Lower* bound.");
@@ -173,5 +182,47 @@ public class Manager {
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
         Database.printResultSet(resultSet);
+        System.out.println("End of Query");
+
+        // Clean up resources
+        resultSet.close();
+        statement.close();
+    }
+    // [WIP] Clarifying sorting logic
+    private static void nMostPopularPart() throws SQLException {
+        int limit = 0;
+
+        boolean continueLoop = true;
+
+        while (continueLoop) {
+            try {
+                System.out.print("Type in the number of parts: ");
+
+                limit = keyboard.nextInt();
+                if (limit < 0) throw new IllegalArgumentException();
+                keyboard.nextLine(); // Clear the input buffer
+
+                continueLoop = false;
+            } catch (InputMismatchException e) {
+                System.err.printf("[Invalid input]: Please input a non-negative integer.\n");
+                keyboard.nextLine(); // Clear the input buffer
+            } catch (IllegalArgumentException e) {
+                System.err.printf("[Invalid input]: Please input a non-negative integer.\n");
+            }
+        }
+        String query =
+        "SELECT part.pID as 'Part ID', pName as 'Part Name', tt.count as 'No.of transaction'\n"
+        + "FROM part\n"
+        + "INNER JOIN (SELECT pID, count(pID) as count FROM transaction GROUP BY pID) tt ON part.pID = tt.pID\n"
+        + "ORDER BY tt.count DESC\n"
+        + "LIMIT ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, limit);
+        ResultSet resultSet = statement.executeQuery();
+        Database.printResultSet(resultSet);
+
+        // Clean up resources
+        resultSet.close();
+        statement.close();
     }
 }
