@@ -70,12 +70,15 @@ public class Admin {
                         break;
 
                     default:
-                        throw new InputMismatchException();
+                        throw new IllegalArgumentException();
                 }
             } catch (InputMismatchException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d.\n", menuItem);
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
-            } catch (SQLException e) {
+            } catch (IllegalArgumentException e) {
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+            }
+            catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
         } while (choice != menuItem);

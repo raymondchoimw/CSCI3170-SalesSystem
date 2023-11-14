@@ -63,12 +63,15 @@ public class Sales {
                         break;
 
                     default:
-                        throw new InputMismatchException();
+                        throw new IllegalArgumentException();
                 }
             } catch (InputMismatchException e) {
-                System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d.\n", menuItem);
+                System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
-            } catch (SQLException e) {
+            } catch (IllegalArgumentException e) {
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+            }
+            catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
         } while (choice != menuItem);
@@ -93,7 +96,7 @@ public class Sales {
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
-                if (choice < 1 || choice > 2) throw new InputMismatchException();
+                if (choice < 1 || choice > 2) throw new IllegalArgumentException();
                 tableName = (choice == 1)? "part": "manufacturer";
                 fieldName = tableName.charAt(0) + "Name";
                 
@@ -112,7 +115,7 @@ public class Sales {
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
-                if (choice < 1 || choice > 2) throw new InputMismatchException();
+                if (choice < 1 || choice > 2) throw new IllegalArgumentException();
                 orderDirection = (choice == 1)? "ASC" : "DESC";
                 
                 //System.out.println("ORDER BY " + orderDirection);
@@ -140,7 +143,9 @@ public class Sales {
             } catch (InputMismatchException e) {
                 System.err.println( "[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
                 keyboard.nextLine(); // Clear the input buffer
-            }
+            } catch (IllegalArgumentException e) {
+                System.err.println( "[Invalid input]: Please enter a valid integer between 1 and 2, inclusive.");
+            } 
         }
     }
 

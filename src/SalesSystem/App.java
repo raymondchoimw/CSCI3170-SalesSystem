@@ -50,12 +50,14 @@ public class App {
                         break;
 
                     default:
-                    throw new InputMismatchException();
+                    throw new IllegalArgumentException();
                 }
 
             } catch (InputMismatchException e) {
                 System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
+            } catch (IllegalArgumentException e) {
+                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             }
         } while (choice != menuItem);
         keyboard.close();
