@@ -82,6 +82,12 @@ cd .\src\SalesSystem
 javac -cp ..\ App.java
 java -cp '.\mysql-jdbc.jar;..' SalesSystem.App
 ```
+##### For Linux environment
+```
+cd ./src/SalesSystem
+javac -cp ../ App.java
+java -cp './mysql-jdbc.jar:..' SalesSystem.App
+```
 ## Dependency Management
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
