@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database {
     
-    private static final String dbAddress = "jdbc:mysql://localhost:3306/db4";//"jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db60?autoReconnect=true&useSSL=false";
+    private static final String dbAddress = "jdbc:mysql://localhost:3306/db4";//"jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db4?autoReconnect=true&useSSL=false";
     private static final String dbUsername = "root"; //"Group4";
     private static final String dbPassword = "CSCI3170";
     
