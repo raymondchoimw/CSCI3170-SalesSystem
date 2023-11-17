@@ -58,8 +58,7 @@ public class Sales {
                         break; // Placeholder
 
                     case menuItem:
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
+                        App.clearScreen();
                         break;
 
                     default:
@@ -69,7 +68,7 @@ public class Sales {
                 System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
             } catch (IllegalArgumentException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             }
             catch (SQLException e) {
                 System.err.println(e.getMessage());
@@ -242,7 +241,7 @@ public class Sales {
                 resultSet.close();
                 statement.close();
             } catch (InputMismatchException e) {
-                System.err.println("Please input a integer ID. Let's start from *Part* ID again.");
+                System.err.println("[Invalid input]: Please input a integer ID. Let's start from *Part* ID again.");
                 keyboard.nextLine(); // Clear the input buffer
             } 
         }

@@ -7,6 +7,10 @@ import java.sql.*;
 
 
 public class App {
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
     final static int menuItem = 4;
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to sales system!");
@@ -54,10 +58,10 @@ public class App {
                 }
 
             } catch (InputMismatchException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
             } catch (IllegalArgumentException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             }
         } while (choice != menuItem);
         keyboard.close();

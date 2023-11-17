@@ -63,18 +63,17 @@ public class Manager {
                         nMostPopularPart();
                         break;
                     case menuItem:
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
+                        App.clearScreen();
                         break;
 
                     default:
                         throw new IllegalArgumentException();
                 }
             } catch (InputMismatchException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
             } catch (IllegalArgumentException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -138,7 +137,7 @@ public class Manager {
                     keyboard.nextLine();
 
                     if (upperBound < lowerBound) {
-                        System.err.println("[Illegal Arguement] Upper bound should be larger than or equal to lower bound. Please input again.");
+                        System.err.println("[Illegal Arguement]: Upper bound should be larger than or equal to lower bound. Please input again.");
                     }
                 }
                 System.out.printf("WHERE sExperience BETWEEN %d AND %d", lowerBound, upperBound);
