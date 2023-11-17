@@ -58,10 +58,10 @@ public class App {
                 }
 
             } catch (InputMismatchException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
             } catch (IllegalArgumentException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             }
         } while (choice != menuItem);
         keyboard.close();

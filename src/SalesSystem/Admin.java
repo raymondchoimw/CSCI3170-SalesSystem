@@ -72,10 +72,10 @@ public class Admin {
                         throw new IllegalArgumentException();
                 }
             } catch (InputMismatchException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
             } catch (IllegalArgumentException e) {
-                System.err.printf("Invalid input. Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
             }
             catch (SQLException e) {
                 System.err.println(e.getMessage());
@@ -246,7 +246,9 @@ public class Admin {
         System.out.print("Which table would you like to show: ");
         String tableName = keyboard.nextLine();
         
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + tableName);
+        PreparedStatement statement = ( tableName.toLowerCase().equals("transaction") ) ?
+                                        connection.prepareStatement("SELECT tID, pID, sID, DATE_FORMAT(tDate, '%d/%m/%Y') as tDate from transaction") : 
+                                        connection.prepareStatement("SELECT * FROM " + tableName);
         ResultSet resultSet = statement.executeQuery();
         Database.printResultSet(resultSet);
 
