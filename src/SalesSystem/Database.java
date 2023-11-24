@@ -16,12 +16,12 @@ public class Database {
 
         // Print column names
         for (int i = 1; i <= columnCount; i++) {
-            columnWidth[i-1] = Math.max(rsmd.getColumnDisplaySize(i), rsmd.getColumnLabel(i).length()+1);
+            columnWidth[i-1] = Math.max(rsmd.getColumnDisplaySize(i), rsmd.getColumnLabel(i).length())+1;
             // ColumnLabel instead of ColumnName as latter does not work with alias
             String rightPad = String.format("%-" + columnWidth[i-1] + "." + columnWidth[i-1] + "s", rsmd.getColumnLabel(i));
             System.out.print("| " + rightPad);
         }
-        System.out.println();
+        System.out.println("|");
 
         // Print rows
         while (resultSet.next()) {
@@ -29,7 +29,7 @@ public class Database {
                 String rightPad = String.format("%-" + columnWidth[i-1] + "." + columnWidth[i-1] + "s", resultSet.getString(i));
             System.out.print("| " + rightPad);
             }
-            System.out.println();
+            System.out.println("|");
         }
     }
     
