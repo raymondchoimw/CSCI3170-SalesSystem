@@ -163,11 +163,29 @@ public class Sales {
                     partId = keyboard.nextInt();
                     keyboard.nextLine();
 
+                    boolean needReinput = true;
+                    while (needReinput) {
+                        System.out.print("Enter the Salesperson ID: ");
+                        salesId = keyboard.nextInt();
+                        keyboard.nextLine();
+
+                        // Check SID correctness
+                        statement = connection.prepareStatement("SELECT sID FROM salesperson WHERE sID = ?");
+                        statement.setInt(1, salesId);
+                        resultSet = statement.executeQuery();
+                        if (!resultSet.next()) {
+                            System.out.printf("Salesperson with ID: [ %d ] is not found in database.\n", salesId); 
+                            System.out.println("Please check if you inputted a correct Salesperson ID.");
+                            System.out.println();
+                        } else {
+                            needReinput = false;
+                        }
+                    }
                     // Check if pAvailableQuantity > 0
-                    statement = connection.prepareStatement("SELECT pName, pAvailableQuantity FROM part WHERE pID = ?");
+                    statement = connection.prepareStatement("SELECT pAvailableQuantity FROM part WHERE pID = ?");
                     statement.setInt(1, partId);
                     resultSet = statement.executeQuery();
-                    availQty = (resultSet.next()) ? resultSet.getInt(2) : 0;
+                    availQty = (resultSet.next()) ? resultSet.getInt(1) : 0;
                     if (availQty == 0) {
                         System.out.printf("Part with ID: [ %d ] is currently unavailable or not found in database.\n", partId); 
                         System.out.println("Please check if you inputted a correct Part ID.");
@@ -175,24 +193,7 @@ public class Sales {
                     }
                 };
 
-                boolean needReinput = true;
-                while (needReinput) {
-                    System.out.print("Enter the Salesperson ID: ");
-                    salesId = keyboard.nextInt();
-                    keyboard.nextLine();
-
-                    // Check SID correctness
-                    statement = connection.prepareStatement("SELECT sID FROM salesperson WHERE sID = ?");
-                    statement.setInt(1, salesId);
-                    resultSet = statement.executeQuery();
-                    if (!resultSet.next()) {
-                        System.out.printf("Salesperson with ID: [ %d ] is not found in database.\n", salesId); 
-                        System.out.println("Please check if you inputted a correct Salesperson ID.");
-                        System.out.println();
-                    } else {
-                        needReinput = false;
-                    }
-                }
+                
                 String query = 
                 "UPDATE part\n"
                 + "SET pAvailableQuantity = ?\n"
