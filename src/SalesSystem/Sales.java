@@ -52,10 +52,10 @@ public class Sales {
                 switch (choice) {
                     case 1:
                         searchForParts();
-                        break; // Placeholder
+                        break;
                     case 2:
                         performTransaction();
-                        break; // Placeholder
+                        break;
 
                     case menuItem:
                         App.clearScreen();
@@ -64,6 +64,7 @@ public class Sales {
                     default:
                         throw new IllegalArgumentException();
                 }
+                choice = menuItem;
             } catch (InputMismatchException e) {
                 System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
@@ -131,6 +132,7 @@ public class Sales {
 
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, "%" + keyword + "%");
+                System.out.println("keyword:" + "%" + keyword + "%");
                 ResultSet resultSet = statement.executeQuery();
                 Database.printResultSet(resultSet);
                 System.out.println("End of Query");

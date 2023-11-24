@@ -69,6 +69,7 @@ public class Manager {
                     default:
                         throw new IllegalArgumentException();
                 }
+                choice = menuItem;
             } catch (InputMismatchException e) {
                 System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
