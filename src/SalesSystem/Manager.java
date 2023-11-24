@@ -140,7 +140,7 @@ public class Manager {
                         System.err.println("[Illegal Arguement]: Upper bound should be larger than or equal to lower bound. Please input again.");
                     }
                 }
-                System.out.printf("WHERE sExperience BETWEEN %d AND %d", lowerBound, upperBound);
+                //System.out.printf("WHERE sExperience BETWEEN %d AND %d\n", lowerBound, upperBound);
 
                 String query = 
                 "SELECT salesperson.sID as ID, sName as Name, sExperience as 'Years of Experience', t.count as 'Number of Transaction'\n"
@@ -153,6 +153,8 @@ public class Manager {
                 statement.setInt(1, lowerBound);
                 statement.setInt(2, upperBound);
                 ResultSet resultSet = statement.executeQuery();
+                
+                System.out.println("Transaction Record:");
                 Database.printResultSet(resultSet);
                 System.out.println("End of Query"); 
                 
