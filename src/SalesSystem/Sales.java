@@ -52,10 +52,10 @@ public class Sales {
                 switch (choice) {
                     case 1:
                         searchForParts();
-                        break; // Placeholder
+                        break;
                     case 2:
                         performTransaction();
-                        break; // Placeholder
+                        break;
 
                     case menuItem:
                         App.clearScreen();
@@ -64,6 +64,8 @@ public class Sales {
                     default:
                         throw new IllegalArgumentException();
                 }
+                choice = menuItem;
+                System.out.println("[Loading] Returning to main menu...");
             } catch (InputMismatchException e) {
                 System.err.printf("[Invalid Input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
@@ -131,6 +133,7 @@ public class Sales {
 
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, "%" + keyword + "%");
+                System.out.println("keyword:" + "%" + keyword + "%");
                 ResultSet resultSet = statement.executeQuery();
                 Database.printResultSet(resultSet);
                 System.out.println("End of Query");
@@ -158,22 +161,10 @@ public class Sales {
 
                 int availQty = 0, partId = 0, salesId = 0;
 
-                while (availQty == 0) {
-                    System.out.print("Enter the Part ID: ");
-                    partId = keyboard.nextInt();
-                    keyboard.nextLine();
-
-                    // Check if pAvailableQuantity > 0
-                    statement = connection.prepareStatement("SELECT pName, pAvailableQuantity FROM part WHERE pID = ?");
-                    statement.setInt(1, partId);
-                    resultSet = statement.executeQuery();
-                    availQty = (resultSet.next()) ? resultSet.getInt(2) : 0;
-                    if (availQty == 0) {
-                        System.out.printf("Part with ID: [ %d ] is currently unavailable or not found in database.\n", partId); 
-                        System.out.println("Please check if you inputted a correct Part ID.");
-                        System.out.println();
-                    }
-                };
+                
+                System.out.print("Enter the Part ID: ");
+                partId = keyboard.nextInt();
+                keyboard.nextLine();
 
                 boolean needReinput = true;
                 while (needReinput) {
@@ -193,6 +184,18 @@ public class Sales {
                         needReinput = false;
                     }
                 }
+                // Check if pAvailableQuantity > 0
+                statement = connection.prepareStatement("SELECT pAvailableQuantity FROM part WHERE pID = ?");
+                statement.setInt(1, partId);
+                resultSet = statement.executeQuery();
+                availQty = (resultSet.next()) ? resultSet.getInt(1) : 0;
+                if (availQty == 0) {
+                    System.out.printf("Part with ID: [ %d ] is currently unavailable or not found in database.\n", partId); 
+                    System.out.println("Please check if you inputted a correct Part ID.");
+                    System.out.println();
+                }
+                if (availQty <= 0) return;
+                
                 String query = 
                 "UPDATE part\n"
                 + "SET pAvailableQuantity = ?\n"

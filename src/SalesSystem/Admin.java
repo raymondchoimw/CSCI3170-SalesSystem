@@ -57,13 +57,13 @@ public class Admin {
                         break; // Pending verify
                     case 2:
                         deleteAllTables();
-                        break; // Pending verify
+                        break;
                     case 3:
                         loadDataFile();
-                        break; //Placeholder
+                        break;
                     case 4:
                         showTableContent();
-                        break; //Placeholder
+                        break; 
                     case menuItem:
                         App.clearScreen();
                         break;
@@ -71,6 +71,9 @@ public class Admin {
                     default:
                         throw new IllegalArgumentException();
                 }
+                choice = menuItem;
+                System.out.println("[Loading] Returning to main menu...");
+
             } catch (InputMismatchException e) {
                 System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
