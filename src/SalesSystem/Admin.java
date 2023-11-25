@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.function.Function;
@@ -193,6 +194,7 @@ public class Admin {
             };
 
             File[] files = f.listFiles(filter);
+            Arrays.sort(files, Comparator.comparing(File::getName));
             if (files == null) {
                 throw new NullPointerException();
             } else {
