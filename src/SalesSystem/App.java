@@ -35,19 +35,17 @@ public class App {
                 // Get user's choice
                 choice = keyboard.nextInt();
                 keyboard.nextLine(); // Clear the input buffer
-
+                //App.clearScreen();
+                System.out.println();
                 // Routing
                 switch (choice) {
                     case 1:
-                        System.out.println();
                         Admin.init(connection, keyboard); // Pass the Scanner to subroutine
                         break;
                     case 2:
-                        System.out.println();
                         Sales.init(connection, keyboard); // Pass the Scanner to subroutine
                         break;
                     case 3:
-                        System.out.println();
                         Manager.init(connection, keyboard); // Pass the Scanner to subroutine
                         break;
                     case 4:
@@ -60,8 +58,10 @@ public class App {
             } catch (InputMismatchException e) {
                 System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
                 keyboard.nextLine(); // Clear the input buffer
+                App.clearScreen();
             } catch (IllegalArgumentException e) {
                 System.err.printf("[Invalid input]: Please enter a valid integer between 1 and %d, inclusive.\n", menuItem);
+                App.clearScreen();
             }
         } while (choice != menuItem);
         keyboard.close();
