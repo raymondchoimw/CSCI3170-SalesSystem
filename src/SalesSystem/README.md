@@ -22,7 +22,7 @@ All files are found in the folder `\src\SalesSystem`. Folder structure is as fol
         transaction.txt
 ```
 
-##### Linux command needed due to folder structure
+##### Methods of compilation and execution
 1. Change working directory
 ```
 cd .\src\SalesSystem
