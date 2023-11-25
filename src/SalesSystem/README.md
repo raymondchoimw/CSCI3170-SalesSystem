@@ -7,14 +7,14 @@
 #### List of files with description
 All files are found in the folder `\src\SalesSystem`. Folder structure is as follow:
 ```
-│   Admin.java
-│   App.java
-│   Database.java
-│   Manager.java
-│   mysql-jdbc.jar
-│   Sales.java
+│   Admin.java		# All functions related to Administrator, including Administrator Menu & other subfunctions.
+│   App.java		# Landing page of the app (i.e. Main Menu), and helper function applicable to whole app.
+│   Database.java	# Helper functions related to database, including connection, checking table existence and format table output.
+│   Manager.java	# All functions related to Manager, including Manager Menu & other subfunctions.
+│   mysql-jdbc.jar	# MySQL JBDC Driver 
+│   Sales.java		# All functions related to Salesperson, including Salesperson Menu & other subfunctions.
 │
-└───demo_data
+└───demo_data                # Each txt file contains data to be loaded into the database table of the same name.
         category.txt
         manufacturer.txt
         part.txt
