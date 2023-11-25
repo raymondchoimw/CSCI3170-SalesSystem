@@ -13,10 +13,10 @@ public class App {
     }
     final static int menuItem = 4;
     public static void main(String[] args) throws Exception {
-        System.out.println("Welcome to sales system!");
-        System.out.println();
-
         Connection connection = Database.connection();
+
+	System.out.println("Welcome to sales system!");
+        System.out.println();
 
         // Initialize scanner to read user input
         Scanner keyboard = new Scanner(System.in);

@@ -250,12 +250,14 @@ public class Admin {
     private static void showTableContent() throws SQLException {
         System.out.print("Which table would you like to show: ");
         String tableName = keyboard.nextLine();
-        
-        PreparedStatement statement = ( tableName.toLowerCase().equals("transaction") ) ?
+        if (Database.existTable(connection, tableName)){
+            PreparedStatement statement = ( tableName.toLowerCase().equals("transaction") ) ?
                                         connection.prepareStatement("SELECT tID, pID, sID, DATE_FORMAT(tDate, '%d/%m/%Y') as tDate from transaction") : 
                                         connection.prepareStatement("SELECT * FROM " + tableName);
-        ResultSet resultSet = statement.executeQuery();
-        Database.printResultSet(resultSet);
-
+            ResultSet resultSet = statement.executeQuery();
+            Database.printResultSet(resultSet);
+        } else {
+            System.out.printf("Table [%s] does not exist in the database. Please check with Administrator for solutions.\n", tableName);
+        }
     }
 }

@@ -5,7 +5,7 @@ import java.sql.*;
 public class Database {
     
     private static final String dbAddress = "jdbc:mysql://localhost:3306/db4";//"jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db4?autoReconnect=true&useSSL=false";
-    private static final String dbUsername = "root"; //"Group4";
+    private static final String dbUsername = "root";//"Group4";
     private static final String dbPassword = "CSCI3170";
     
     // WIP: print result set in specific format
@@ -44,7 +44,7 @@ public class Database {
             ResultSet resultSet = statement.executeQuery();
 
             exist = resultSet.next();
-            System.out.println("exist: " + exist);
+            //System.out.println("exist: " + exist);
 
             // Clean up resources
             resultSet.close();
@@ -72,6 +72,7 @@ public class Database {
             System.exit(0);
         } catch (SQLException e){
             System.out.println(e);
+	        System.exit(0);
         }
 
         return con;
