@@ -133,7 +133,7 @@ public class Sales {
 
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, "%" + keyword + "%");
-                System.out.println("keyword:" + "%" + keyword + "%");
+                //System.out.println("keyword:" + "%" + keyword + "%");
                 ResultSet resultSet = statement.executeQuery();
                 Database.printResultSet(resultSet);
                 System.out.println("End of Query");
